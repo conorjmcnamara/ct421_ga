@@ -3,6 +3,13 @@ from src.crossover import order_crossover, partially_mapped_crossover
 
 
 def test_order_crossover(monkeypatch):
+    """
+    Tests the order crossover (OX) function by mocking `random.sample` to return predefined indices
+    and comparing the generated offspring with expected children.
+
+    Args:
+        monkeypatch: A pytest fixture used to mock the random.sample function.
+    """
     monkeypatch.setattr(random, "sample", lambda a, b: [3, 6])
 
     parent1 = [3, 4, 8, 2, 7, 1, 6, 5]
@@ -16,6 +23,13 @@ def test_order_crossover(monkeypatch):
 
 
 def test_partially_mapped_crossover(monkeypatch):
+    """
+    Tests the partially mapped function (PMX) function by mocking `random.sample` to return
+    predefined indices and comparing the generated offspring with expected children.
+
+    Args:
+        monkeypatch: A pytest fixture used to mock the random.sample function.
+    """
     monkeypatch.setattr(random, "sample", lambda a, b: [3, 6])
 
     parent1 = [3, 4, 8, 2, 7, 1, 6, 5]

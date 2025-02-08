@@ -10,6 +10,9 @@ from src.selection import elitism, tournament_selection
 
 
 class GeneticAlgorithm:
+    """
+    A genetic algorithm to solve the Travelling Salesman Problem (TSP).
+    """
     def __init__(
         self,
         coords: List[Tuple[float, float]],
@@ -24,6 +27,22 @@ class GeneticAlgorithm:
         init_population_random_rate: float,
         early_stop_threshold: int
     ):
+        """
+        Initialises the genetic algorithm.
+
+        Args:
+            coords: The coordinates of the cities to be visited.
+            population_size: The number of individuals in the population.
+            crossover_rate: The probability of performing crossover.
+            crossover_func: The function that performs crossover on two parent individuals.
+            mutation_rate: The probability of performing mutation.
+            mutation_func: The function that performs mutation on an individual.
+            elitism_rate: The proportion of individuals to retain through elitism.
+            tournament_size: The size of the tournament for selection.
+            generations: The number of generations to run the algorithm for.
+            init_population_random_rate: The probability of initializing an individual randomly.
+            early_stop_threshold: The number of generations without improvement before stopping.
+        """
         self.crossover_rate = crossover_rate
         self.crossover_func = crossover_func
         self.mutation_rate = mutation_rate
@@ -35,6 +54,7 @@ class GeneticAlgorithm:
         self.init_pop_random_rate = init_population_random_rate
         self.early_stop_threshold = early_stop_threshold
 
+        # Initialisation
         self.distance_matrix = compute_distance_matrix(coords)
         self.population = init_population(
             population_size,
@@ -51,6 +71,14 @@ class GeneticAlgorithm:
         self.computational_secs = None
 
     def run(self) -> None:
+        """
+        Runs the genetic algorithm.
+
+        In each generation, the population's fitness is evaluated, elitism is applied to retain the
+        best individuals, selection occurs using tournament selection, crossover and mutation are
+        performed to generate the next population, and early stopping is checked based on no
+        improvement.
+        """
         start_time = time.time()
 
         for _ in range(self.generations):
@@ -84,7 +112,7 @@ class GeneticAlgorithm:
                 self.population,
                 fitness_scores,
                 self.tournament_size,
-                self.elitism_count
+                len(self.population) - self.elitism_count
             )
 
             # Crossover
@@ -112,6 +140,15 @@ class GeneticAlgorithm:
         self.computational_secs = time.time() - start_time
 
     def save_results(self, path: str) -> None:
+        """
+        Saves the results of the genetic algorithm to a JSON file.
+
+        The results include computational time, best distance found, best solution, and average and
+        best fitness scores per generation.
+
+        Args:
+            The file path where the results will be saved.
+        """
         results = {
             "computational_secs": round(self.computational_secs, 4),
             "best_distance": round(self.best_distance, 4),

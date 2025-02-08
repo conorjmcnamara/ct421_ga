@@ -1,10 +1,19 @@
 import json
 import os
 import matplotlib.pyplot as plt
-from typing import List, Tuple, Union, Dict
+from typing import List, Tuple
 
 
 def load_tsplib(path: str) -> List[Tuple[float, float]]:
+    """
+    Loads the coordinates of cities from a TSPLIB file.
+
+    Args:
+        path: The path to the TSPLIB file.
+
+    Returns:
+        A list of tuples representing the coordinates (x, y) of each city.
+    """
     with open(path, 'r') as file:
         lines = file.readlines()
         node_coord_section = False
@@ -22,13 +31,17 @@ def load_tsplib(path: str) -> List[Tuple[float, float]]:
         return coords
 
 
-def read_results(path: str) -> Union[Dict, List]:
-    with open(path, 'r') as file:
-        return json.load(file)
-
-
 def plot_fitness(results_path: str, dataset: str, skip: int = 0) -> None:
-    results = read_results(results_path)
+    """
+    Plots the fitness scores (average and best) per generation from a results file.
+
+    Args:
+        results_path: The path to the results JSON file.
+        dataset: The name of the dataset.
+        skip: The number of initial generations to skip in the average fitness plot (default is 0).
+    """
+    with open(results_path, 'r') as file:
+        results = json.load(file)
 
     avg_fitness = results["avg_fitness_per_gen"][skip:]
     best_fitness = results["best_fitness_per_gen"]

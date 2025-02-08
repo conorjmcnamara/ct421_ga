@@ -3,6 +3,20 @@ from typing import List, Tuple, Dict
 
 
 def order_crossover(parent1: List[int], parent2: List[int]) -> Tuple[List[int], List[int]]:
+    """
+    Performs order crossover (OX) on two parent individuals to produce two children.
+
+    In this process, a random subpath from each parent is transferred into the corresponding child,
+    and the remaining positions in each child is filled with genes from the opposite parent while
+    preserving the relative order of the remaining genes.
+
+    Args:
+        parent1: The first parent represented as a list of city indicies.
+        parent2: The second parent represented as a list of city indicies.
+
+    Returns:
+        A tuple containing two child individuals.
+    """
     n = len(parent1)
     child1 = [-1] * n
     child2 = [-1] * n
@@ -10,7 +24,7 @@ def order_crossover(parent1: List[int], parent2: List[int]) -> Tuple[List[int], 
     # Choose two random cut points
     start, end = sorted(random.sample(range(n), 2))
 
-    # Copy the {start, end} gene subsequence from parent1 to child1 and from parent2 to child2
+    # Copy the {start, end} gene subpath from parent1 to child1 and from parent2 to child2
     child1[start:end] = parent1[start:end]
     child2[start:end] = parent2[start:end]
 
@@ -35,6 +49,21 @@ def partially_mapped_crossover(
     parent1: List[int],
     parent2: List[int]
 ) -> Tuple[List[int], List[int]]:
+    """
+    Performs partially mapped crossover (PMX) on two parents to produce two children.
+
+    In this process, a random subpath from each parent is transferred into the opposite child, and
+    the remaining positions in each child is filled with genes from the corresponding parent,
+    except when those genes were part of the transferred subpath, in which case the mapping between
+    swapped genes is repeatedly followed until a valid replacement is found.
+
+    Args:
+        parent1: The first parent represented as a list of city indicies.
+        parent2: The second parent represented as a list of city indicies.
+
+    Returns:
+        A tuple containing two child individuals.
+    """
     n = len(parent1)
     child1 = [-1] * n
     child2 = [-1] * n
@@ -42,7 +71,7 @@ def partially_mapped_crossover(
     # Choose two random cut points
     start, end = sorted(random.sample(range(n), 2))
 
-    # Copy the {start, end} gene subsequence from parent2 to child1 and from parent1 to child2
+    # Copy the {start, end} gene subpath from parent2 to child1 and from parent1 to child2
     child1[start:end] = parent2[start:end]
     child2[start:end] = parent1[start:end]
 

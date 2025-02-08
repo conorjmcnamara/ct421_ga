@@ -8,6 +8,17 @@ def elitism(
     fitness_scores: List[float],
     elitism_count: int
 ) -> List[List[int]]:
+    """
+    Selects the top `elitism_count` individuals from a population based on their fitness scores.
+
+    Args:
+        population: A list of individuals.
+        fitness_scores: A list of fitness scores associated with each individual in the population.
+        elitism_count: The number of individuals to select.
+
+    Returns:
+        A list of the top `elitism_count` individuals.
+    """
     return [
         copy.deepcopy(population[i]) for i in sorted(
             range(len(fitness_scores)),
@@ -20,10 +31,24 @@ def tournament_selection(
     population: List[List[int]],
     fitness_scores: List[float],
     tournament_size: int,
-    elitism_count: int = 0
+    num_rounds: int
 ) -> List[List[int]]:
+    """
+    Selects individuals from a population using tournament selection, where each tournament selects
+    a winner among a random sample of individuals based on their fitness scores. This is repeated
+    for a specified number of rounds.
+
+    Args:
+        population: A list of individuals.
+        fitness_scores: A list of fitness scores associated with each individual in the population.
+        tournament_size: The number of individuals randomly selected for each tournament.
+        num_rounds: The number of rounds of tournament selection to perform.
+
+    Returns:
+        A list of individuals selected through tournament selection.
+    """
     selected = []
-    for _ in range(len(population) - elitism_count):
+    for _ in range(num_rounds):
         competitors = random.sample(list(zip(population, fitness_scores)), tournament_size)
         winner = min(competitors, key=lambda competitor: competitor[1])
         selected.append(winner[0])

@@ -1,5 +1,8 @@
 # CT421 - Artificial Intelligence - Evolutionary Search
 
+## Prerequisites
+- Python
+
 ## Installation
 ```sh
 pip install -r requirements/base.txt
