@@ -49,7 +49,7 @@ def partially_mapped_crossover(
     mapping1 = {parent1[i]: parent2[i] for i in range(start, end)}
     mapping2 = {parent2[i]: parent1[i] for i in range(start, end)}
 
-    def fill_child(child: List[int], parent: List[int], mapping: Dict[int, int]) -> None:
+    def fill_child_pos(child: List[int], parent: List[int], mapping: Dict[int, int]) -> None:
         for i in range(len(parent)):
             if child[i] == -1:
                 gene = parent[i]
@@ -62,6 +62,6 @@ def partially_mapped_crossover(
                         gene = mapping[gene]
                     child[i] = gene
 
-    fill_child(child1, parent1, mapping2)
-    fill_child(child2, parent2, mapping1)
+    fill_child_pos(child1, parent1, mapping2)
+    fill_child_pos(child2, parent2, mapping1)
     return child1, child2
