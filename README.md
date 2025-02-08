@@ -4,7 +4,7 @@
 ```sh
 pip install -r requirements/base.txt
 
-# Development dependencies (linting, testing)
+# Development dependencies (for linting and testing)
 pip install -r requirements/dev.txt
 ```
 
