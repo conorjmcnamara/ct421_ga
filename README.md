@@ -1,4 +1,4 @@
-# CT421 Evolutionary Search
+# CT421 - Artificial Intelligence - Evolutionary Search
 
 ## Installation
 ```sh
