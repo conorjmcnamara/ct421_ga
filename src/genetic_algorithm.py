@@ -21,9 +21,9 @@ class GeneticAlgorithm:
         crossover_func: Callable[[List[int], List[int]], Tuple[List[int], List[int]]],
         mutation_rate: float,
         mutation_func: Callable[[List[int]], None],
+        generations: int,
         elitism_rate: float,
         tournament_size: int,
-        generations: int,
         init_population_random_rate: float,
         early_stop_threshold: int
     ):
@@ -37,9 +37,9 @@ class GeneticAlgorithm:
             crossover_func: The function that performs crossover on two parent individuals.
             mutation_rate: The probability of performing mutation.
             mutation_func: The function that performs mutation on an individual.
+            generations: The number of generations to run the algorithm for.
             elitism_rate: The proportion of individuals to retain through elitism.
             tournament_size: The size of the tournament for selection.
-            generations: The number of generations to run the algorithm for.
             init_population_random_rate: The probability of initializing an individual randomly.
             early_stop_threshold: The number of generations without improvement before stopping.
         """
@@ -48,9 +48,9 @@ class GeneticAlgorithm:
         self.mutation_rate = mutation_rate
         self.mutation_func = mutation_func
 
+        self.generations = generations
         self.elitism_count = int(elitism_rate * population_size)
         self.tournament_size = tournament_size
-        self.generations = generations
         self.init_pop_random_rate = init_population_random_rate
         self.early_stop_threshold = early_stop_threshold
 
