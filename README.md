@@ -1,13 +1,20 @@
 # CT421 - Artificial Intelligence - Evolutionary Search
 
 ## Prerequisites
-- Python
+- Python 3.x
 
 ## Installation
-```sh
-pip install -r requirements/base.txt
+Clone the repository and install the required dependencies:
 
-# Development dependencies (for linting and testing)
+```sh
+git clone https://github.com/conorjmcnamara/ct421_ga.git
+
+pip install -r requirements/base.txt
+```
+
+To install development dependencies (for linting and testing), run:
+
+```sh
 pip install -r requirements/dev.txt
 ```
 
