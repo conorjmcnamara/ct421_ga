@@ -147,7 +147,7 @@ class GeneticAlgorithm:
         best fitness scores per generation.
 
         Args:
-            The file path where the results will be saved.
+            path: The file path where the results will be saved.
         """
         results = {
             "computational_secs": round(self.computational_secs, 4),

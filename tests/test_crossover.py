@@ -8,7 +8,7 @@ def test_order_crossover(monkeypatch):
     and comparing the generated offspring with expected children.
 
     Args:
-        monkeypatch: A pytest fixture used to mock the random.sample function.
+        monkeypatch: A pytest fixture used to mock the `random.sample` function.
     """
     monkeypatch.setattr(random, "sample", lambda a, b: [3, 6])
 
@@ -28,7 +28,7 @@ def test_partially_mapped_crossover(monkeypatch):
     predefined indices and comparing the generated offspring with expected children.
 
     Args:
-        monkeypatch: A pytest fixture used to mock the random.sample function.
+        monkeypatch: A pytest fixture used to mock the `random.sample` function.
     """
     monkeypatch.setattr(random, "sample", lambda a, b: [3, 6])
 
