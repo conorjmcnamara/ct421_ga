@@ -28,7 +28,7 @@ def run_ga(
 
     Args:
         dataset: The name of the dataset (should correspond to a `.tsp` file in `data/datasets`).
-        curr_dir: The base directory where datasets and results are stored
+        curr_dir: The base directory where datasets and results are stored (default is "").
         population_sizes: A list of population sizes to test (default is [200, 300, 400]).
         crossover_rates: A list of crossover rates to test (default is [0.7, 0.8, 0.9]).
         crossover_funcs: A list of crossover functions to test (default is [order_crossover,
