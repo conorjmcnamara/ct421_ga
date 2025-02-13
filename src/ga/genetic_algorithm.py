@@ -4,9 +4,9 @@ import copy
 import os
 import json
 from typing import List, Tuple, Callable
-from src.fitness import compute_distance_matrix, fitness
-from src.initialisation import init_population
-from src.selection import elitism, tournament_selection
+from src.ga.fitness import compute_distance_matrix, fitness
+from src.ga.initialisation import init_population
+from src.ga.selection import elitism, tournament_selection
 
 
 class GeneticAlgorithm:
@@ -81,7 +81,7 @@ class GeneticAlgorithm:
         """
         start_time = time.time()
 
-        for _ in range(self.generations):
+        for gen in range(self.generations):
             # Evaluate fitness
             fitness_scores = [
                 fitness(individual, self.distance_matrix) for individual in self.population
@@ -136,7 +136,9 @@ class GeneticAlgorithm:
                 if random.random() < self.mutation_rate:
                     self.mutation_func(next_population[i])
 
+            # Replacement
             self.population = elite_individuals + next_population
+
         self.computational_secs = time.time() - start_time
 
     def save_results(self, path: str) -> None:

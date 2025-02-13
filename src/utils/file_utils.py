@@ -31,6 +31,38 @@ def load_tsplib(path: str) -> List[Tuple[float, float]]:
         return coords
 
 
+def analyse_results(results_dir: str, dataset: str, skip: int = 0) -> None:
+    """
+    Analyzes the results of the genetic algorithm. This function loads the result files, finds the
+    best configuration, and plots the fitness over generations.
+
+    Args:
+        results: The directory containing results JSON files.
+        dataset: The name of the dataset.
+        skip: The number of initial generations to skip in the average fitness plot (default is 0).
+    """
+    results_dir = os.path.join(results_dir)
+    results_paths = [
+        os.path.join(results_dir, file)
+        for file in os.listdir(results_dir)
+        if file.endswith(".json")
+    ]
+
+    all_results = []
+    for path in results_paths:
+        with open(path, 'r') as file:
+            data = json.load(file)
+            all_results.append(data)
+
+    if all_results:
+        best_idx = min(range(len(all_results)), key=lambda i: all_results[i]["best_distance"])
+        best_config = all_results[best_idx]
+        best_path = results_paths[best_idx]
+
+        print(f"Best configuration: {best_config}")
+        plot_fitness(best_path, dataset, skip)
+
+
 def plot_fitness(results_path: str, dataset: str, skip: int = 0) -> None:
     """
     Plots the fitness scores (average and best) per generation from a results file.

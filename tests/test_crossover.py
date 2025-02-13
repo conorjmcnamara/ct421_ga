@@ -1,5 +1,5 @@
 import random
-from src.crossover import order_crossover, partially_mapped_crossover
+from src.ga.crossover import order_crossover, partially_mapped_crossover
 
 
 def test_order_crossover(monkeypatch):
