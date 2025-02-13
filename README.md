@@ -4,6 +4,7 @@ A genetic algorithm implementation for solving the Travelling Salesman Problem (
 
 ## Student Details
 Student Name: Conor McNamara
+
 Student ID: 21378116
 
 ## Prerequisites
