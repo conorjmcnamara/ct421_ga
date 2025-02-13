@@ -108,7 +108,7 @@ class GeneticAlgorithm:
             elite_individuals = elitism(self.population, fitness_scores, self.elitism_count)
 
             # Selection
-            selected_population = tournament_selection(
+            parents = tournament_selection(
                 self.population,
                 fitness_scores,
                 self.tournament_size,
@@ -117,8 +117,8 @@ class GeneticAlgorithm:
 
             # Crossover
             next_population = []
-            for i in range(0, len(selected_population) - 1, 2):
-                parent1, parent2 = selected_population[i], selected_population[i+1]
+            for i in range(0, len(parents) - 1, 2):
+                parent1, parent2 = parents[i], parents[i+1]
 
                 if random.random() < self.crossover_rate:
                     child1, child2 = self.crossover_func(parent1, parent2)
@@ -127,9 +127,9 @@ class GeneticAlgorithm:
 
                 next_population.extend([child1, child2])
 
-            # Handle odd-length populations
-            if len(selected_population) % 2 == 1:
-                next_population.append(selected_population[-1])
+            # Handle odd-lengths
+            if len(parents) % 2 == 1:
+                next_population.append(parents[-1])
 
             # Mutation
             for i in range(len(next_population)):
