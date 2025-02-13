@@ -29,7 +29,7 @@ pip install -r requirements/dev.txt
 ### Running the Program
 The Jupyter notebook, `notebooks/main.ipynb`, contains the entrypoints for experiments on the following TSPLIB datasets: `berlin52`, `kroA100`, and `pr1002`.
 
-Alternatively, run the main script:
+Alternatively, run experiments from `src/main.py`:
 ```sh
 python -m src.main 
 ```
@@ -42,7 +42,7 @@ run_ga("berlin52", population_sizes=[500, 1000], mutation_rates=[0.3])
 ```
 
 #### Customising Datasets
-To test other datasets, add the `.tsp` file inside the `/data/datasets` directory and update the `dataset` argument of the `run_ga()` function.
+To test other datasets, add the `.tsp` file inside the `data/datasets/` directory and update the `dataset` argument of the `run_ga()` function.
 
 ### Linting
 ```sh
