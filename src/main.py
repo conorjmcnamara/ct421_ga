@@ -28,21 +28,21 @@ def run_ga(
 
     Args:
         dataset: The name of the dataset (should correspond to a `.tsp` file in `data/datasets`).
-        curr_dir: The base directory where datasets and results are stored (default is "").
-        population_sizes: A list of population sizes to test (default is [200, 300, 400]).
-        crossover_rates: A list of crossover rates to test (default is [0.7, 0.8, 0.9]).
-        crossover_funcs: A list of crossover functions to test (default is [order_crossover,
+        curr_dir: The base directory where datasets and results are stored (default: "").
+        population_sizes: A list of population sizes to test (default: [200, 300, 400]).
+        crossover_rates: A list of crossover rates to test (default: [0.7, 0.8, 0.9]).
+        crossover_funcs: A list of crossover functions to test (default: [order_crossover,
             partially_mapped_crossover]).
-        mutation_rates: A list of mutation rates to test (default is [0.05, 0.1, 0.2]).
-        mutation_funcs: A list of mutation functions to test (default is [inversion_mutation,
+        mutation_rates: A list of mutation rates to test (default: [0.05, 0.1, 0.2]).
+        mutation_funcs: A list of mutation functions to test (default: [inversion_mutation,
             relocation_mutation]).
-        generations: The number of generations to run the algorithm for (default is 4000).
-        elitism_rate: The proportion of individuals to retain through elitism (default is 0.05).
-        tournament_size: The size of the tournament for selection (default is 3).
-        greedy_rate: The probability of initialising an individual with a greedy heuristic (default
-            is 0.05).
+        generations: The number of generations to run the algorithm for (default: 4000).
+        elitism_rate: The proportion of individuals to retain through elitism (default: 0.05).
+        tournament_size: The size of the tournament for selection (default: 3).
+        greedy_rate: The probability of initialising an individual with a greedy heuristic (
+            default: 0.05).
         early_stop_threshold: The number of generations without improvement before stopping (
-            default is 100).
+            default: 100).
     """
     coords = load_tsplib(os.path.join(curr_dir, f"data/datasets/{dataset}.tsp"))
 

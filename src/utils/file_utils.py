@@ -39,7 +39,7 @@ def analyse_results(results_dir: str, dataset: str, skip: int = 0) -> None:
     Args:
         results: The directory containing results JSON files.
         dataset: The name of the dataset.
-        skip: The number of initial generations to skip in the average fitness plot (default is 0).
+        skip: The number of initial generations to skip in the average fitness plot (default: 0).
     """
     results_dir = os.path.join(results_dir)
     results_paths = [
@@ -70,7 +70,7 @@ def plot_fitness(results_path: str, dataset: str, skip: int = 0) -> None:
     Args:
         results_path: The path to the results JSON file.
         dataset: The name of the dataset.
-        skip: The number of initial generations to skip in the average fitness plot (default is 0).
+        skip: The number of initial generations to skip in the average fitness plot (default: 0).
     """
     with open(results_path, 'r') as file:
         results = json.load(file)
