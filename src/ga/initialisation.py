@@ -6,7 +6,7 @@ def init_population(
     population_size: int,
     num_cities: int,
     distance_matrix: List[List[float]],
-    random_rate: float
+    greedy_rate: float
 ) -> List[List[int]]:
     """
     Initialises a population of individuals (solutions) for a genetic algorithm. Each individual
@@ -17,7 +17,7 @@ def init_population(
         population_size: The number of individuals to be created in the population.
         num_cities: The total number of cities.
         distance_matrix: A square matrix representing the distances between each pair of cities.
-        random_rate: The probability of initialising an individual randomly.
+        greedy_rate: The probability of initialising an individual with a greedy heuristic.
 
     Returns:
         A list of individuals, where each individual is a list of city indices.
@@ -25,10 +25,10 @@ def init_population(
     population = []
 
     for _ in range(population_size):
-        if random.random() < random_rate:
-            individual = random.sample(range(num_cities), num_cities)
-        else:
+        if random.random() < greedy_rate:
             individual = greedy_heuristic(num_cities, distance_matrix)
+        else:
+            individual = random.sample(range(num_cities), num_cities)
 
         population.append(individual)
     return population

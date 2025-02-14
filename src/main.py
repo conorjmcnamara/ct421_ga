@@ -19,7 +19,7 @@ def run_ga(
     elitism_rate: float = 0.05,
     tournament_size: int = 3,
     generations: int = 4000,
-    init_population_random_rate: float = 0.95,
+    greedy_rate: float = 0.05,
     early_stop_threshold: int = 100
 ) -> None:
     """
@@ -39,8 +39,7 @@ def run_ga(
         generations: The number of generations to run the algorithm for (default is 4000).
         elitism_rate: The proportion of individuals to retain through elitism (default is 0.05).
         tournament_size: The size of the tournament for selection (default is 3).
-        init_population_random_rate: The probability of initializing an individual randomly (
-            default is 0.95).
+        greedy_rate: The probability of initialising an individual with a greedy heuristic.
         early_stop_threshold: The number of generations without improvement before stopping (
             default is 100).
     """
@@ -61,7 +60,7 @@ def run_ga(
                             generations,
                             elitism_rate,
                             tournament_size,
-                            init_population_random_rate,
+                            greedy_rate,
                             early_stop_threshold
                         )
                         ga.run()

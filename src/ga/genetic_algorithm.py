@@ -24,7 +24,7 @@ class GeneticAlgorithm:
         generations: int,
         elitism_rate: float,
         tournament_size: int,
-        init_population_random_rate: float,
+        greedy_rate: float,
         early_stop_threshold: int
     ):
         """
@@ -40,7 +40,7 @@ class GeneticAlgorithm:
             generations: The number of generations to run the algorithm for.
             elitism_rate: The proportion of individuals to retain through elitism.
             tournament_size: The size of the tournament for selection.
-            init_population_random_rate: The probability of initializing an individual randomly.
+            greedy_rate: The probability of initialising an individual with a greedy heuristic.
             early_stop_threshold: The number of generations without improvement before stopping.
         """
         self.crossover_rate = crossover_rate
@@ -51,7 +51,6 @@ class GeneticAlgorithm:
         self.generations = generations
         self.elitism_count = int(elitism_rate * population_size)
         self.tournament_size = tournament_size
-        self.init_pop_random_rate = init_population_random_rate
         self.early_stop_threshold = early_stop_threshold
 
         # Initialisation
@@ -60,7 +59,7 @@ class GeneticAlgorithm:
             population_size,
             len(coords),
             self.distance_matrix,
-            init_population_random_rate
+            greedy_rate
         )
 
         self.avg_fitness_per_gen = []
