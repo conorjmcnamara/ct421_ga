@@ -39,7 +39,8 @@ def run_ga(
         generations: The number of generations to run the algorithm for (default is 4000).
         elitism_rate: The proportion of individuals to retain through elitism (default is 0.05).
         tournament_size: The size of the tournament for selection (default is 3).
-        greedy_rate: The probability of initialising an individual with a greedy heuristic.
+        greedy_rate: The probability of initialising an individual with a greedy heuristic (default
+            is 0.05).
         early_stop_threshold: The number of generations without improvement before stopping (
             default is 100).
     """
