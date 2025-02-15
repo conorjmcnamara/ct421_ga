@@ -1,5 +1,7 @@
 import json
 import os
+import re
+import csv
 import matplotlib.pyplot as plt
 from typing import List, Tuple
 
@@ -33,19 +35,20 @@ def load_tsplib(path: str) -> List[Tuple[float, float]]:
 
 def analyse_results(results_dir: str, dataset: str, skip: int = 0) -> None:
     """
-    Analyzes the results of the genetic algorithm. This function loads the result files, finds the
-    best configuration, and plots the fitness over generations.
+    Analyzes the results of the genetic algorithm. This function aggreagtes results to a CSV file,
+    finds the best configuration, and plots the fitness over generations.
 
     Args:
-        results: The directory containing results JSON files.
+        results_dir: The directory containing results JSON files.
         dataset: The name of the dataset.
         skip: The number of initial generations to skip in the average fitness plot (default: 0).
     """
-    results_dir = os.path.join(results_dir)
+    aggregate_results(results_dir)
+
     results_paths = [
-        os.path.join(results_dir, file)
-        for file in os.listdir(results_dir)
-        if file.endswith(".json")
+        os.path.join(results_dir, filename)
+        for filename in os.listdir(results_dir)
+        if filename.endswith(".json")
     ]
 
     all_results = []
@@ -106,3 +109,55 @@ def plot_fitness(results_path: str, dataset: str, skip: int = 0) -> None:
     best_plot_path = results_path.replace("results", "plots").replace(".json", "_best.png")
     plt.savefig(best_plot_path)
     plt.show()
+
+
+def aggregate_results(results_dir: str, output_csv: str = "aggregated.csv") -> None:
+    """
+    Aggregates results to a CSV file.
+
+    Args:
+        results_dir: The directory containing results JSON files.
+        output_csv: The filename to the output CSV file.
+    """
+    data = []
+    pattern = re.compile(r"pop(\d+)_([0-9.]+)(\w+)_([0-9.]+)(\w+)\.json")
+
+    for filename in os.listdir(results_dir):
+        if filename.endswith(".json"):
+            match = pattern.match(filename)
+            if not match:
+                continue
+                
+            population = int(match.group(1))
+            crossover_rate = float(match.group(2))
+            crossover_func = match.group(3)
+            mutation_rate = float(match.group(4))
+            mutation_func = match.group(5)
+
+            file_path = os.path.join(results_dir, filename)
+            with open(file_path, 'r') as json_file:
+                json_data = json.load(json_file)
+            
+            time = json_data.get("computational_secs", None)
+            best_distance = json_data.get("best_distance", None)
+
+            data.append([
+                population, crossover_rate, crossover_func,
+                mutation_rate, mutation_func, time, best_distance
+            ])
+
+    csv_path = os.path.join(results_dir, output_csv)
+    with open(csv_path, 'w', newline="") as csv_file:
+        writer = csv.writer(csv_file)
+        writer.writerow([
+            "population",
+            "crossover_rate",
+            "crossover_func",
+            "mutation_rate",
+            "mutation_func",
+            "time",
+            "best_distance"
+        ])
+        writer.writerows(data)
+    
+    print(f"Saved aggregated results to {csv_path}")
