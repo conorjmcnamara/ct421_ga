@@ -40,15 +40,15 @@ def test_relocation_mutation(monkeypatch: pytest.MonkeyPatch) -> None:
 
         # For insert_pos (0 to len(individual))
         if a == 0 and b == len(individual):
-            return 5
+            return 0
 
         return random.randint(a, b)
 
     monkeypatch.setattr(random, "randint", mock_randint)
 
-    # Relocate the subpath [1, 2, 3] to position 5
+    # Relocate the subpath [1, 2, 3] to position 0
     individual = [0, 1, 2, 3, 4, 5, 6]
-    expected_individual = [0, 4, 5, 6, 1, 2, 3]
+    expected_individual = [1, 2, 3, 0, 4, 5, 6]
     relocation_mutation(individual)
 
     assert individual == expected_individual
