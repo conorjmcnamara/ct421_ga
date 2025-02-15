@@ -1,8 +1,9 @@
+import pytest
 import random
 from src.ga.crossover import order_crossover, partially_mapped_crossover
 
 
-def test_order_crossover(monkeypatch):
+def test_order_crossover(monkeypatch: pytest.MonkeyPatch) -> None:
     """
     Tests the order crossover (OX) function by mocking `random.sample` to return predefined indices
     and comparing the generated offspring with expected children.
@@ -22,7 +23,7 @@ def test_order_crossover(monkeypatch):
     assert child2 == expected_child2
 
 
-def test_partially_mapped_crossover(monkeypatch):
+def test_partially_mapped_crossover(monkeypatch: pytest.MonkeyPatch) -> None:
     """
     Tests the partially mapped function (PMX) function by mocking `random.sample` to return
     predefined indices and comparing the generated offspring with expected children.
