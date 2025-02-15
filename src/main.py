@@ -18,7 +18,7 @@ def run_ga(
     mutation_funcs: List[Callable[[List[int]], None]] = [inversion_mutation, relocation_mutation],
     elitism_rate: float = 0.05,
     tournament_size: int = 3,
-    generations: int = 4000,
+    generations: int = 3000,
     greedy_rate: float = 0.05,
     early_stop_threshold: int = 100
 ) -> None:
@@ -36,7 +36,7 @@ def run_ga(
         mutation_rates: A list of mutation rates to test (default: [0.05, 0.1, 0.2]).
         mutation_funcs: A list of mutation functions to test (default: [inversion_mutation,
             relocation_mutation]).
-        generations: The number of generations to run the algorithm for (default: 4000).
+        generations: The number of generations to run the algorithm for (default: 3000).
         elitism_rate: The proportion of individuals to retain through elitism (default: 0.05).
         tournament_size: The size of the tournament for selection (default: 3).
         greedy_rate: The probability of initialising an individual with a greedy heuristic (
