@@ -117,6 +117,7 @@ def aggregate_results(results_dir: str, output_csv: str = "aggregated.csv") -> N
 
     print(f"Saved aggregated results to {csv_path}")
 
+
 def plot_fitness(results_path: str, dataset: str, skip: int = 0) -> None:
     """
     Plots the fitness scores (average and best) per generation from a results file.
