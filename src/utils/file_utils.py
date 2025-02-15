@@ -127,7 +127,7 @@ def aggregate_results(results_dir: str, output_csv: str = "aggregated.csv") -> N
             match = pattern.match(filename)
             if not match:
                 continue
-                
+
             population = int(match.group(1))
             crossover_rate = float(match.group(2))
             crossover_func = match.group(3)
@@ -137,7 +137,7 @@ def aggregate_results(results_dir: str, output_csv: str = "aggregated.csv") -> N
             file_path = os.path.join(results_dir, filename)
             with open(file_path, 'r') as json_file:
                 json_data = json.load(json_file)
-            
+
             time = json_data.get("computational_secs", None)
             best_distance = json_data.get("best_distance", None)
 
@@ -159,5 +159,5 @@ def aggregate_results(results_dir: str, output_csv: str = "aggregated.csv") -> N
             "best_distance"
         ])
         writer.writerows(data)
-    
+
     print(f"Saved aggregated results to {csv_path}")
