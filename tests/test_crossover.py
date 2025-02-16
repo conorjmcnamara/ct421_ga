@@ -11,12 +11,12 @@ def test_order_crossover(monkeypatch: pytest.MonkeyPatch) -> None:
     Args:
         monkeypatch: A pytest fixture used to mock the `random.sample` function.
     """
-    monkeypatch.setattr(random, "sample", lambda a, b: [3, 6])
+    monkeypatch.setattr(random, "sample", lambda a, b: [2, 5])
 
-    parent1 = [3, 4, 8, 2, 7, 1, 6, 5]
-    parent2 = [4, 2, 5, 1, 6, 8, 3, 7]
-    expected_child1 = [5, 6, 8, 2, 7, 1, 3, 4]
-    expected_child2 = [4, 2, 7, 1, 6, 8, 5, 3]
+    parent1 = [1, 5, 4, 7, 6, 3, 2, 8]
+    parent2 = [6, 8, 3, 2, 7, 4, 1, 5]
+    expected_child1 = [3, 2, 4, 7, 6, 1, 5, 8]
+    expected_child2 = [4, 6, 3, 2, 7, 8, 1, 5]
 
     child1, child2 = order_crossover(parent1, parent2)
     assert child1 == expected_child1
@@ -31,12 +31,12 @@ def test_partially_mapped_crossover(monkeypatch: pytest.MonkeyPatch) -> None:
     Args:
         monkeypatch: A pytest fixture used to mock the `random.sample` function.
     """
-    monkeypatch.setattr(random, "sample", lambda a, b: [3, 6])
+    monkeypatch.setattr(random, "sample", lambda a, b: [2, 5])
 
-    parent1 = [3, 4, 8, 2, 7, 1, 6, 5]
-    parent2 = [4, 2, 5, 1, 6, 8, 3, 7]
-    expected_child1 = [3, 4, 2, 1, 6, 8, 7, 5]
-    expected_child2 = [4, 8, 5, 2, 7, 1, 3, 6]
+    parent1 = [1, 5, 4, 7, 6, 3, 2, 8]
+    parent2 = [6, 8, 3, 2, 7, 4, 1, 5]
+    expected_child1 = [1, 5, 3, 2, 7, 4, 6, 8]
+    expected_child2 = [2, 8, 4, 7, 6, 3, 1, 5]
 
     child1, child2 = partially_mapped_crossover(parent1, parent2)
     assert child1 == expected_child1

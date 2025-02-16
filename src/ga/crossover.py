@@ -6,9 +6,11 @@ def order_crossover(parent1: List[int], parent2: List[int]) -> Tuple[List[int], 
     """
     Performs order crossover (OX) on two parent individuals to produce two children.
 
-    In this process, a random subpath from each parent is transferred into the corresponding child,
-    and the remaining positions in each child is filled with genes from the opposite parent while
-    preserving the relative order of the remaining genes.
+    - Select two random cut indices.
+    - Copy the segment between the cut indices from each parent1 to child1.
+    - Fill the remaining genes in child1 from parent2 in the same order, skipping duplicates,
+    starting from the position just after where the copied segment ends.
+    - Repeat for the second child using the opposite parent.
 
     Args:
         parent1: The first parent represented as a list of city indicies.
@@ -21,10 +23,8 @@ def order_crossover(parent1: List[int], parent2: List[int]) -> Tuple[List[int], 
     child1 = [-1] * n
     child2 = [-1] * n
 
-    # Choose two random cut points
     start, end = sorted(random.sample(range(n), 2))
 
-    # Copy the {start, end} gene subpath from parent1 to child1 and from parent2 to child2
     child1[start:end] = parent1[start:end]
     child2[start:end] = parent2[start:end]
 
@@ -35,7 +35,6 @@ def order_crossover(parent1: List[int], parent2: List[int]) -> Tuple[List[int], 
             gene = parent[i % n]
 
             if gene not in child[start:end]:
-                # Place the gene into the child's next available position
                 while child[curr_pos % n] != -1:
                     curr_pos += 1
                 child[curr_pos % n] = gene
@@ -52,10 +51,14 @@ def partially_mapped_crossover(
     """
     Performs partially mapped crossover (PMX) on two parents to produce two children.
 
-    In this process, a random subpath from each parent is transferred into the opposite child, and
-    the remaining positions in each child is filled with genes from the corresponding parent,
-    except when those genes were part of the transferred subpath, in which case the mapping between
-    swapped genes is repeatedly followed until a valid replacement is found.
+    - Select two random cut indices.
+    - Copy the segment between the cut indices from Parent 2 to Child 1.
+    - Fill the remaining cities in Child 1 from Parent 1, handling conflicts with mappings:
+        - If a city from Parent 1 has already been placed in Child 1 due to the copied segment from
+        Parent 2, then use a mapping to find a city in Parent 1 that hasn't been used yet.
+        - Look up the city in Parent 1 that corresponds to the conflicting city in Parent 2, and
+        repeat this process until a city that hasn't been placed in Child 1 is found.
+    - Repeat for the second child using the opposite parent.
 
     Args:
         parent1: The first parent represented as a list of city indicies.
@@ -68,10 +71,8 @@ def partially_mapped_crossover(
     child1 = [-1] * n
     child2 = [-1] * n
 
-    # Choose two random cut points
     start, end = sorted(random.sample(range(n), 2))
 
-    # Copy the {start, end} gene subpath from parent2 to child1 and from parent1 to child2
     child1[start:end] = parent2[start:end]
     child2[start:end] = parent1[start:end]
 
@@ -84,7 +85,6 @@ def partially_mapped_crossover(
                 gene = parent[i]
                 if gene not in child[start:end]:
                     child[i] = gene
-                    continue
                 else:
                     # Handle conflicts
                     while gene in child:
