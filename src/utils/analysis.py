@@ -170,7 +170,7 @@ def plot_parameters(
         plt.colorbar(label="Point Density")
         plt.title(f"{dataset}: Top {N} by {sort_by} - {y_axis} vs {param}")
         plt.xlabel(param)
-        plt.xticks(sorted(top_n_data[param].unique()))
+        plt.xticks(sorted(data[param].unique()))
         plt.ylabel(y_axis)
 
         file_name = f"{N}_{sort_by}_{y_axis}_{param}.png"
