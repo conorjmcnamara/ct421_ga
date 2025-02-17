@@ -129,7 +129,7 @@ def plot_fitness(results_path: str, dataset: str, skip: int = 0) -> None:
     plt.grid(True)
 
     best_plot_path = results_path.replace("results", "plots").replace(".json", "_best.png")
-    plt.savefig(best_plot_path)
+    plt.savefig(best_plot_path, bbox_inches="tight")
     plt.show()
 
 
@@ -171,4 +171,8 @@ def plot_parameters(
         plt.title(f"{dataset}: Top {N} by {sort_by} - {y_axis} vs {param}")
         plt.xlabel(param)
         plt.ylabel(y_axis)
+
+        file_name = f"{N}_{sort_by}_{y_axis}_{param}.png"
+        plot_path = os.path.join(os.path.dirname(aggregated_path).replace("results", "plots"), file_name)
+        plt.savefig(plot_path, bbox_inches="tight")
         plt.show()
