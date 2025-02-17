@@ -2,7 +2,6 @@ import json
 import os
 import re
 import matplotlib.pyplot as plt
-import matplotlib.colors as mcolors
 import pandas as pd
 
 
@@ -141,7 +140,8 @@ def plot_parameters(
     N: int = 10
 ) -> None:
     """
-    Plots scatter plots with density heatmaps for different parameters vs a user-defined metric.
+    Plots scatter plots with density color-coded circles for different parameters vs a user-defined
+    metric.
 
     Args:
         aggregated_path: The path to the aggregated results CSV file.
@@ -153,24 +153,24 @@ def plot_parameters(
     data = pd.read_csv(aggregated_path)
     top_n_data = data.sort_values(by=sort_by).head(N)
 
-    colors = [(0, "lightblue"), (1, "darkblue")]
-    cmap = mcolors.LinearSegmentedColormap.from_list("custom_cmap", colors)
-
     parameters = ["population", "crossover_rate", "mutation_rate"]
 
     for param in parameters:
         plt.figure(figsize=(10, 6))
-        plt.hexbin(
+        plt.scatter(
             top_n_data[param],
             top_n_data[y_axis],
-            gridsize=30,
-            cmap=cmap,
-            mincnt=1
+            c=top_n_data[y_axis],
+            cmap="coolwarm",
+            s=400,
+            alpha=0.7,
+            edgecolors="k"
         )
-        plt.colorbar(label="Point Density")
+        plt.colorbar(label="Value Intensity")
         plt.title(f"{dataset}: Top {N} by {sort_by} - {y_axis} vs {param}")
-        plt.xlabel(param)
-        plt.ylabel(y_axis)
+        plt.xlabel(param.replace("_", " ").title())
+        plt.ylabel(y_axis.replace("_", " ").title())
+        plt.tight_layout()
 
         file_name = f"{N}_{sort_by}_{y_axis}_{param}.png"
         plot_path = os.path.join(
