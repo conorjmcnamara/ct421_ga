@@ -163,7 +163,7 @@ def plot_parameters(
         plt.hexbin(
             top_n_data[param],
             top_n_data[y_axis],
-            gridsize=30,
+            gridsize=10,
             cmap=cmap,
             mincnt=1
         )
