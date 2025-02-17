@@ -1,9 +1,10 @@
 import os
 from typing import List, Callable, Tuple
-from src.utils.file_utils import load_tsplib, analyse_results
+from src.utils.file_utils import load_tsplib
 from src.ga.genetic_algorithm import GeneticAlgorithm
 from src.ga.crossover import order_crossover, partially_mapped_crossover
 from src.ga.mutation import inversion_mutation, relocation_mutation
+from src.utils.analysis import analyse_results
 
 
 def run_ga(
