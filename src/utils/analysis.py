@@ -173,6 +173,9 @@ def plot_parameters(
         plt.ylabel(y_axis)
 
         file_name = f"{N}_{sort_by}_{y_axis}_{param}.png"
-        plot_path = os.path.join(os.path.dirname(aggregated_path).replace("results", "plots"), file_name)
+        plot_path = os.path.join(
+            os.path.dirname(aggregated_path).replace("results", "plots"),
+            file_name
+        )
         plt.savefig(plot_path, bbox_inches="tight")
         plt.show()
